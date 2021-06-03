@@ -10,7 +10,7 @@
 if (! defined('NV_MAINFILE'))
     die('Stop!!!');
 
-require_once NV_ROOTDIR . '/modules/location/location.class.php';
+require_once NV_ROOTDIR . '/modules/' . $module_name . '/location.class.php';
 
 $liststatus = array(
     '-1' => $lang_module['items_status_queue'],

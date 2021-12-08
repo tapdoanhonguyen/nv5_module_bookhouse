@@ -36,10 +36,219 @@
 				<label class="col-sm-5 col-md-3 control-label"><strong>{LANG.descriptionhtml}</strong></label>
 				<div class="col-sm-19 col-md-21">{ROW.descriptionhtml}</div>
 			</div>
-<div class="form-group">
-				<label class="col-sm-5 col-md-3 control-label"><strong>{LANG.items_location}</strong></label>
-				<div class="col-sm-19 col-md-21">{LOCATION}</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">Thông tin khác</div>
+				<div class="panel-body">
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Diện tích xây dựng</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="dientichxd" value="{ROW.dientichxd}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Thời gian xây dựng</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="thoigianxd" value="{ROW.thoigianxd}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Thời gian giao nhà</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="thoigiangn" value="{ROW.thoigiangn}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Vốn đầu tư</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="vondautu" value="{ROW.vondautu}"/>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Chủ đầu tư</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="chudautu" value="{ROW.chudautu}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Diện tích</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="dientich" value="{ROW.dientich}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Số phòng</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="sophong" value="{ROW.sophong}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Số Block</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="soblock" value="{ROW.soblock}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Số tầng</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="sotang" value="{ROW.sotang}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Số căn hộ</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="socanho" value="{ROW.socanho}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Không gian xanh</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="khonggianxanh" value="{ROW.khonggianxanh}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Mật độ xây dựng</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="matdo" value="{ROW.matdo}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Phí quản lý</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="phiquanly" value="{ROW.phiquanly}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Phí giữ ôtô</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="giuoto" value="{ROW.giuoto}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Phí giữ xe máy</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="giuxemay" value="{ROW.giuxemay}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Giá bán</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="giaban" value="{ROW.giaban}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-5 col-md-4 control-label"><strong>Giá thuê</strong></label>
+							<div class="col-sm-19 col-md-20">
+								<input class="form-control" type="text" name="giathue" value="{ROW.giathue}"/>
+							</div>
+						</div>
+				</div>
 			</div>
+			<div class="panel panel-default">	
+				<div class="panel-heading">Địa điểm</div>
+				<div class="panel-body">
+					<div class="form-group">
+							<label class="col-sm-5 col-md-3 control-label"><strong>{LANG.items_location}</strong><span class="red">(*)</span></label>
+							<div class="col-sm-19 col-md-21">{LOCATION}
+								<div class="form-group">
+									<input type="text" class="form-control" name="address" value="{ROW.address}" placeholder="{LANG.items_address}" />
+								</div> 
+								<!-- BEGIN: maps -->
+						<hr />
+						<div class="form-group">
+							<input type="text" class="form-control" name="maps_address" id="maps_address" value="" placeholder="{LANG.items_maps_location}">
+						</div>
+						<script type="text/javascript" src="{NV_BASE_SITEURL}themes/batdongsan05/js/bookhouse-google_maps.js"></script>
+						<input type="hidden" id="maps_appid" value="{MAPS_APPID}" />
+						<div id="maps_maparea">
+							<div id="maps_mapcanvas" style="margin-top: 10px;" class="form-group"></div>
+							<div class="row form-group">
+								<div class="col-xs-6">
+									<div class="input-group">
+										<span class="input-group-addon">L</span> <input type="text" class="form-control" name="maps[maps_mapcenterlat]" id="maps_mapcenterlat" value="{DATA.maps.maps_mapcenterlat}" readonly="readonly">
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="input-group">
+										<span class="input-group-addon">N</span> <input type="text" class="form-control" name="maps[maps_mapcenterlng]" id="maps_mapcenterlng" value="{DATA.maps.maps_mapcenterlng}" readonly="readonly">
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="input-group">
+										<span class="input-group-addon">L</span> <input type="text" class="form-control" name="maps[maps_maplat]" id="maps_maplat" value="{DATA.maps.maps_maplat}" readonly="readonly">
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="input-group">
+										<span class="input-group-addon">N</span> <input type="text" class="form-control" name="maps[maps_maplng]" id="maps_maplng" value="{DATA.maps.maps_maplng}" readonly="readonly">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="input-group">
+										<span class="input-group-addon">Z</span> <input type="text" class="form-control" name="maps[maps_mapzoom]" id="maps_mapzoom" value="{DATA.maps.maps_mapzoom}" readonly="readonly">
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END: maps -->
+						<!-- BEGIN: required_maps_appid -->
+						<div class="alert alert-danger">{LANG.items_required_maps_appid}</div>
+						<!-- END: required_maps_appid -->
+							</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">	
+				<div class="panel-heading">Hình ảnh</div>
+				<div class="panel-body">
+						<div class="form-group">
+							<label class="col-sm-5 col-md-3 control-label"><strong>{LANG.image}</strong></label>
+							<div class="col-sm-19 col-md-21">
+								<div id="uploader" class="m-bottom">
+									<p>{LANG.images_none_support}</p>
+								</div>
+								<div class="other-image row" id="image-other">
+									<!-- BEGIN: data -->
+									<div class="col-xs-4 col-sm-4 col-md-4 other-image-item text-center thumb_booth new-images-append" id="other-image-div-{DATA.number}">
+										<input type="hidden" name="otherimage[{DATA.number}][id]" value="{DATA.number}"> <input type="hidden" name="otherimage[{DATA.number}][basename]" value="{DATA.basename}"> <input type="hidden" name="otherimage[{DATA.number}][homeimgfile]" value="{DATA.homeimgfile}"> <input type="hidden" name="otherimage[{DATA.number}][thumb]" value="{DATA.thumb}"> <input type="hidden" name="otherimage[{DATA.number}][name]" value="{DATA.title}"> <input type="hidden" name="otherimage[{DATA.number}][description]" value="{DATA.description}"> <a href="#" onclick="modalShow('{DATA.basename}', '<img src=\'{DATA.filepath}\' class=\'img-responsive\' />'); return false;"> <img style="height: 110px" class="img-thumbnail m-bottom responstyle {DATA.box_img}" src="{DATA.filepath}">
+										</a> <em title="{LANG.title_btn_closeimg}" class="fa fa-times-circle fa-lg fa-pointer btn-close_img" onclick="nv_delete_other_images( {DATA.number} ); return false;">&nbsp;</em> <input type="radio" class="input_img hidden" name="homeimg" value="{DATA.number}"{DATA.checked}> <input type="button" class="btn btn-success btn-xs avatar" value="{LANG.choose_img}" onclick="click_btn_avatar({DATA.number})">
+									</div>
+									<!-- END: data -->
+								</div>
+							</div>
+						</div>
+				</div>	
+			</div>	
+			<div class="col-md-5">
+				<div class="panel panel-default">
+					<div class="panel-heading">Nhóm Dự Án</div>
+						<div class="panel-body">
+							<label class="show"><input type="checkbox" name="inhome" value="1" {ROW.inhome} />&nbsp;Nổi bật</label>
+						</div>
+				</div>
+				<div class="panel panel-default">
+						<div class="panel-heading">Nội thất</div>
+						<div class="panel-body">
+							<!-- BEGIN: noithat -->
+								<div class="noithat">
+									<input type="checkbox" name="noithat[]" {checked} value="{noithat.id}"> {noithat.title}
+								</div>
+								<!-- END: noithat -->
+						</div>
+				</div>
+				<div class="panel panel-default">
+						<div class="panel-heading">Tiện ích</div>
+						<div class="panel-body">
+							<!-- BEGIN: tienich -->
+								<div class="tienich">
+									<input type="checkbox" name="tienich[]" {checked} value="{tienich.id}"> {tienich.title}
+								</div>
+								<!-- END: tienich -->
+						</div>
+				</div>
+			</div>	
 			<div class="form-group text-center">
 				<input class="btn btn-primary" name="submit" type="submit" value="{LANG.save}" />
 			</div>

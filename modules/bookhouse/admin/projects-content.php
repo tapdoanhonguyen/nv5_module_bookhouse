@@ -117,6 +117,39 @@ if (empty($row['id'])) {
     $xtpl->parse('main.auto_get_alias');
 }
 
+// lấy danh sách nội thất ra
+$ds_noithat = $db->query('SELECT * FROM '. NV_PREFIXLANG . '_' . $module_data . '_furniture ORDER BY id DESC')->fetchAll();
+
+if(!empty($ds_noithat))
+{
+	$mang_noithat = explode(',', $row['noithat']); 
+	foreach($ds_noithat as $ti)
+	{
+		if(in_array($ti['id'],$mang_noithat))
+		$xtpl->assign( 'checked', 'checked=checked');
+		else $xtpl->assign( 'checked', '');
+		$xtpl->assign( 'noithat', $ti );
+		$xtpl->parse( 'main.noithat' );
+	}
+
+}
+	
+	// lấy danh sách tiện ích ra
+$ds_tienich = $db->query('SELECT * FROM '. NV_PREFIXLANG . '_' . $module_data . '_convenient ORDER BY id DESC')->fetchAll();
+
+if(!empty($ds_tienich))
+{
+	$mang_tienich = explode(',',$row['tienich']);
+	foreach($ds_tienich as $ti)
+	{
+		if(in_array($ti['id'],$mang_tienich))
+		$xtpl->assign( 'checked', 'checked=checked');
+		else $xtpl->assign( 'checked', '');
+		$xtpl->assign( 'tienich', $ti );
+		$xtpl->parse( 'main.tienich' );
+	}
+
+}
 $xtpl->parse('main');
 $contents = $xtpl->text('main');
 

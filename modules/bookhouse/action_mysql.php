@@ -41,6 +41,8 @@ $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lan
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_district";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_province";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_ward";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_furniture";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_convenient";
 
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
@@ -485,6 +487,24 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   UNIQUE KEY alias (alias),
   UNIQUE KEY code (code),
   KEY districtid (districtid)
+) ENGINE=MyISAM";
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_furniture (
+  id smallint(4) unsigned NOT NULL AUTO_INCREMENT,
+  title varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên',
+  gia_tri varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Giá trị',
+  weight smallint(4) unsigned NOT NULL DEFAULT '0',
+  status tinyint(1) NOT NULL DEFAULT '1' COMMENT 'Trạng thái',
+  PRIMARY KEY (id),
+  UNIQUE KEY title (title)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_convenient (
+  id smallint(4) unsigned NOT NULL AUTO_INCREMENT,
+  title varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên',
+  weight smallint(4) unsigned NOT NULL DEFAULT '0',
+  status tinyint(1) NOT NULL DEFAULT '1' COMMENT 'Trạng thái',
+  PRIMARY KEY (id),
+  UNIQUE KEY title (title)
 ) ENGINE=MyISAM";
 
 $data = array();

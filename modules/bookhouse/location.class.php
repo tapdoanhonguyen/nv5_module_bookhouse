@@ -353,13 +353,13 @@ class Location
         return implode(', ', $string);
     }
 
-    public function buildInput($template = 'default', $module = 'location')
+    public function buildInput($template = 'default', $module = 'bookhouse')
     {
         global $db, $db_config, $site_mods, $global_config, $lang_module, $module_config, $module_name;
         
         $array_country = $array_province = $array_district = $array_ward = array();
         
-        $location_array_config = $module_config['location'];
+        $location_array_config = $module_config['bookhouse'];
         
         $i = 0;
         $first_country = $this->select_countryid;

@@ -71,6 +71,8 @@ $allow_func = array(
     'projects-content',
     'reason',
     'type',
+    'furniture',
+    'convenient',
 'pricetype'
 );
 
@@ -84,6 +86,8 @@ if ($NV_IS_ADMIN_MODULE) {
     $submenu['projects'] = $lang_module['projects'];
     $submenu['way'] = $lang_module['way'];
     $submenu['legal'] = $lang_module['legal'];
+    $submenu['furniture'] = $lang_module['furniture'];
+    $submenu['convenient'] = $lang_module['convenient'];
     $submenu['roomtype'] = $lang_module['roomtype'];
     $submenu['reason'] = $lang_module['reason'];
     $submenu['type'] = $lang_module['type'];

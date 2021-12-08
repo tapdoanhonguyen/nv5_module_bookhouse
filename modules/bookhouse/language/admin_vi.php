@@ -415,3 +415,33 @@ $lang_module['unit'] = 'Đơn vị';
 $lang_module['config_time_reloadpage'] = 'Thời gian tải lại trang (phút)';
 $lang_module['time_reloadpage_note'] = 'Hệ thống sẽ tải lại trang nếu cấu hình lớn hơn 0';
 
+
+$lang_module['floor'] = 'Tầng';
+$lang_module['bedroom'] = 'Phòng ngủ';
+$lang_module['toilet'] = 'Toilet';
+$lang_module['interior'] = 'Nội thất';
+$lang_module['approval_review'] = 'Xét duyệt đánh giá';
+$lang_module['review'] = 'Đánh giá';
+$lang_module['name_bookbouse'] = 'Tên bất động sản';
+$lang_module['review_sender'] = 'Người đánh giá';
+$lang_module['review_rating'] = 'Điểm';
+$lang_module['search_bodytext'] = 'Nội dung';
+$lang_module['review_add_time'] = 'Thời gian đăng';
+$lang_module['review_status_1'] = 'Hiển thị';
+$lang_module['review_status_0'] = 'Không hiển thị';
+$lang_module['prounit_del_select'] = 'Xóa mục chọn';
+$lang_module['action'] = 'Thực hiện';
+$lang_module['prounit_del_no_items'] = 'Bạn chưa chọn mục nào';
+$lang_module['review_check'] = 'Kiểm duyệt đánh giá trước khi hiển thị';
+$lang_module['publtime'] = 'Thời gian hiệu lực';
+$lang_module['error_required_publtime'] = 'Lỗi: bạn cần chọn dữ liệu cho ngày hiệu lực!';
+$lang_module['error_required_address'] = 'Lỗi: bạn cần nhập dữ liệu cho Địa chỉ';
+
+$lang_module['choose_img'] = 'Đặt ảnh đại diện';
+$lang_module['title_btn_closeimg'] = 'Xóa ảnh này';
+
+$lang_module['furniture'] = 'Nội thất';
+$lang_module['phong_khach'] = 'Phòng khách'; 
+$lang_module['phong_ngu'] = 'Phòng ngủ'; 
+$lang_module['phong_tam'] = 'Phòng tắm'; 
+$lang_module['convenient'] = 'Tiện nghi'; 

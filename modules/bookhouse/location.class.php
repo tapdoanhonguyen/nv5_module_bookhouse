@@ -332,7 +332,7 @@ class Location
     {
         global $db, $db_config, $site_mods, $module_config;
         
-        $location_array_config = $module_config['location'];
+        $location_array_config = $module_config['bookhouse'];
         $string = array();
         
         if (! empty($wardid)) {

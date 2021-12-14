@@ -187,8 +187,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
     //$data['bodytext'] = $nv_Request->get_editor('bodytext', '', NV_ALLOWED_HTML_TAGS);
     $data['bodytext'] = $nv_Request->get_textarea('bodytext', '', 'br', 1);
     $data['way_id'] = $nv_Request->get_int('way', 'post', 0);
-    $data['so_tang'] = $nv_Request->get_int('so_tang', 'post', 0);
-    $data['so_phong'] = $nv_Request->get_int('so_phong', 'post', 0);
+    $data['floor'] = $nv_Request->get_int('floor', 'post', 0);
+    $data['num_room'] = $nv_Request->get_int('num_room', 'post', 0);
     $data['legal_id'] = $nv_Request->get_int('legal', 'post', 0);
     $data['provinceid'] = $nv_Request->get_int('provinceid', 'post', 0);
     $data['districtid'] = $nv_Request->get_int('districtid', 'post', 0);
@@ -396,8 +396,8 @@ list ($width, $height) = explode('x', $array_config['image_upload_size']);
 					typeid = :typeid,
 					projectid = :projectid,
 					way_id = :way_id,
-					so_tang = :so_tang,
-					so_phong = :so_phong,
+					floor = :floor,
+					num_room = :num_room,
 					legal_id = :legal_id,
 					homeimgfile = :homeimgfile,
 					homeimgthumb = ' . $data['homeimgthumb'] . ',
@@ -437,8 +437,8 @@ list ($width, $height) = explode('x', $array_config['image_upload_size']);
             $stmt->bindParam(':typeid', $data['typeid'], PDO::PARAM_INT);
             $stmt->bindParam(':projectid', $data['projectid'], PDO::PARAM_INT);
             $stmt->bindParam(':way_id', $data['way_id'], PDO::PARAM_INT);
-            $stmt->bindParam(':so_tang', $data['so_tang'], PDO::PARAM_INT);
-            $stmt->bindParam(':so_phong', $data['so_phong'], PDO::PARAM_INT);
+            $stmt->bindParam(':floor', $data['floor'], PDO::PARAM_INT);
+            $stmt->bindParam(':num_room', $data['num_room'], PDO::PARAM_INT);
             $stmt->bindParam(':legal_id', $data['legal_id'], PDO::PARAM_INT);
             $stmt->bindParam(':homeimgfile', $data['homeimgfile'], PDO::PARAM_STR);
             $stmt->bindParam(':homeimgalt', $data['homeimgalt'], PDO::PARAM_STR);
@@ -542,10 +542,10 @@ list ($width, $height) = explode('x', $array_config['image_upload_size']);
             }
 			
            
-            $sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (title, alias, catid, hometext, bodytext, admin_id, addtime, edittime, exptime, area, size_v, size_h, price, price_time, money_unit, typeid, projectid, way_id, so_tang, so_phong, legal_id, homeimgfile, homeimgthumb, homeimgalt, 
+            $sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (title, alias, catid, hometext, bodytext, admin_id, addtime, edittime, exptime, area, size_v, size_h, price, price_time, money_unit, typeid, projectid, way_id, floor, num_room, legal_id, homeimgfile, homeimgthumb, homeimgalt, 
                 front, road, structure, type, provinceid, districtid, wardid, address, maps, inhome, allowed_comm, hitstotal, showprice, contact_fullname, contact_email, contact_phone, contact_address, ordertime, is_queue )
 				VALUES (:title, :alias, :catid, :hometext, :bodytext, :admin_id, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', :exptime,
-				:area, :size_v, :size_h, :price, :price_time, :money_unit, :typeid, :projectid, :way_id, :so_tang, :so_phong, :legal_id, :homeimgfile, ' . $data['homeimgthumb'] . ', :homeimgalt, :front, :road, :structure, :type, :provinceid, :districtid, :wardid, :address, :maps, :inhome,
+				:area, :size_v, :size_h, :price, :price_time, :money_unit, :typeid, :projectid, :way_id, :floor, :num_room, :legal_id, :homeimgfile, ' . $data['homeimgthumb'] . ', :homeimgalt, :front, :road, :structure, :type, :provinceid, :districtid, :wardid, :address, :maps, :inhome,
 				:allowed_comm, 0, :showprice, :contact_fullname, :contact_email, :contact_phone, :contact_address, :ordertime, :is_queue )';
             
             $data_insert = array();
@@ -565,8 +565,8 @@ list ($width, $height) = explode('x', $array_config['image_upload_size']);
             $data_insert['typeid'] = $data['typeid'];
             $data_insert['projectid'] = $data['projectid'];
             $data_insert['way_id'] = $data['way_id'];
-            $data_insert['so_tang'] = $data['so_tang'];
-            $data_insert['so_phong'] = $data['so_phong'];
+            $data_insert['floor'] = $data['floor'];
+            $data_insert['num_room'] = $data['num_room'];
             $data_insert['legal_id'] = $data['legal_id'];
             $data_insert['homeimgfile'] = $data['homeimgfile'];
             $data_insert['homeimgalt'] = $data['homeimgalt'];

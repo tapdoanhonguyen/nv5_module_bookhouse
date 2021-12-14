@@ -268,9 +268,9 @@ if ($nv_Request->isset_request('add', 'get') or $nv_Request->isset_request('edit
         $data['catid'] = 0;
         $data['room'] = array();
         $data['area'] = 0;
-		$data['noi_that'] = '';
+		$data['furniture'] = '';
         $data['formid'] = '';
-        $data['tien_ich'] = '';
+        $data['convenient'] = '';
         $data['size_v'] = 0;
         $data['size_h'] = 0;
         $data['price'] = 0;
@@ -463,11 +463,11 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
         $data['contact_email'] = $nv_Request->get_title('contact_email', 'post', '');
         $data['contact_phone'] = $nv_Request->get_title('contact_phone', 'post', '');
         $data['contact_address'] = $nv_Request->get_title('contact_address', 'post', '');
-        $tien_ich = array_unique($nv_Request->get_typed_array('tien_ich', 'post,get', 'int', array()));
-        $data['tien_ich'] = implode(',', $tien_ich); //print_r($tien_ich );die;
+        $convenient = array_unique($nv_Request->get_typed_array('convenient', 'post,get', 'int', array()));
+        $data['convenient'] = implode(',', $convenient); //print_r($convenient );die;
 
-        $noi_that = array_unique($nv_Request->get_typed_array('noi_that', 'post,get', 'int', array()));
-        $data['noi_that'] = implode(',', $noi_that);
+        $furniture = array_unique($nv_Request->get_typed_array('furniture', 'post,get', 'int', array()));
+        $data['furniture'] = implode(',', $furniture);
 		$formid = array_unique($nv_Request->get_typed_array('formid', 'post,get', 'int', array()));
         $data['formid'] = implode(',', $formid);
         if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('exptime', 'post'), $m)) {
@@ -559,8 +559,8 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
 				    price_time = :price_time,
 					money_unit = :money_unit,
 					typeid = :typeid,
-					noi_that = :noi_that,
-					tien_ich = :tien_ich,
+					furniture = :furniture,
+					convenient = :convenient,
 					projectid = :projectid,
 					way_id = :way_id,
 					legal_id = :legal_id,
@@ -600,9 +600,8 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
                 $stmt->bindParam(':exptime', $data['exptime'], PDO::PARAM_INT);
                 $stmt->bindParam(':code', $data['code'], PDO::PARAM_STR);
                 $stmt->bindParam(':area', $data['area'], PDO::PARAM_STR);
-				$stmt->bindParam(':tien_ich', $data['tien_ich'], PDO::PARAM_STR);
-                $stmt->bindParam(':formid', $data['formid'], PDO::PARAM_STR);
-                $stmt->bindParam(':noi_that', $data['noi_that'], PDO::PARAM_STR);
+				$stmt->bindParam(':convenient', $data['convenient'], PDO::PARAM_STR);
+                $stmt->bindParam(':furniture', $data['furniture'], PDO::PARAM_STR);
                 $stmt->bindParam(':size_v', $data['size_v'], PDO::PARAM_STR);
                 $stmt->bindParam(':size_h', $data['size_h'], PDO::PARAM_STR);
                 $stmt->bindParam(':price', $data['price'], PDO::PARAM_STR);
@@ -683,9 +682,9 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
                 }
             } else {
                 $sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (title, alias, catid, hometext, bodytext, admin_id, addtime, edittime, exptime, code, area, size_v, size_h, price, price_time, money_unit, typeid, projectid, way_id, legal_id, homeimgfile, homeimgthumb, 
-                homeimgalt, front, road, floor, num_room, noi_that, tien_ich, structure, type, provinceid, districtid, wardid, address, maps, inhome, allowed_comm, hitstotal, showprice, contact_fullname, contact_email, contact_phone, contact_address, ordertime)
+                homeimgalt, front, road, floor, num_room, furniture, convenient, structure, type, provinceid, districtid, wardid, address, maps, inhome, allowed_comm, hitstotal, showprice, contact_fullname, contact_email, contact_phone, contact_address, ordertime)
 				VALUES (:title, :alias, :catid, :hometext, :bodytext, :admin_id, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', :exptime,
-				:code, :area, :size_v, :size_h, :price, :price_time, :money_unit, :typeid, :projectid, :way_id, :legal_id, :homeimgfile, ' . $data['homeimgthumb'] . ', :homeimgalt, :front, :road, :floor, :num_room, :noi_that, :tien_ich, :structure, :type, :provinceid, :districtid, :wardid, :address, :maps, :inhome,
+				:code, :area, :size_v, :size_h, :price, :price_time, :money_unit, :typeid, :projectid, :way_id, :legal_id, :homeimgfile, ' . $data['homeimgthumb'] . ', :homeimgalt, :front, :road, :floor, :num_room, :furniture, :convenient, :structure, :type, :provinceid, :districtid, :wardid, :address, :maps, :inhome,
 				:allowed_comm, 0, :showprice, :contact_fullname, :contact_email, :contact_phone, :contact_address, :ordertime)';
                 
                 $data_insert = array();
@@ -713,8 +712,8 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
                 $data_insert['road'] = $data['road'];
                 $data_insert['floor'] = $data['floor'];
                 $data_insert['num_room'] = $data['num_room'];
-				$data_insert['noi_that'] = $data['noi_that'];
-                $data_insert['tien_ich'] = $data['tien_ich'];
+				$data_insert['furniture'] = $data['furniture'];
+                $data_insert['convenient'] = $data['convenient'];
                 $data_insert['structure'] = $data['structure'];
                 $data_insert['type'] = $data['type'];
                 $data_insert['provinceid'] = $data['provinceid'];
@@ -958,13 +957,13 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
     $ds_noithat = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_furniture ORDER BY id DESC')->fetchAll();
 
     if (!empty($ds_noithat)) {
-        $mang_noithat = explode(',', $data['noi_that']);
+        $mang_noithat = explode(',', $data['furniture']);
         foreach ($ds_noithat as $ti) {
             if (in_array($ti['id'], $mang_noithat))
                 $xtpl->assign('checked', 'checked=checked');
             else $xtpl->assign('checked', '');
-            $xtpl->assign('noi_that', $ti);
-            $xtpl->parse('main.noi_that');
+            $xtpl->assign('furniture', $ti);
+            $xtpl->parse('main.furniture');
         }
     }
 	if (!empty($array_status)) {
@@ -989,13 +988,13 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
     $ds_tienich = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_convenient ORDER BY id DESC')->fetchAll();
 
     if (!empty($ds_tienich)) {
-        $mang_tienich = explode(',', $data['tien_ich']);
+        $mang_tienich = explode(',', $data['convenient']);
         foreach ($ds_tienich as $ti) {
             if (in_array($ti['id'], $mang_tienich))
                 $xtpl->assign('checked', 'checked=checked');
             else $xtpl->assign('checked', '');
-            $xtpl->assign('tien_ich', $ti);
-            $xtpl->parse('main.tien_ich');
+            $xtpl->assign('convenient', $ti);
+            $xtpl->parse('main.convenient');
         }
     }
     if (! empty($array_projects)) {

@@ -2,15 +2,14 @@
 
 /**
  * @Project NUKEVIET 4.x
-* @Author mynukeviet (contact@mynukeviet.net)
-* @Copyright (C) 2017 mynukeviet. All rights reserved
-* @Createdate Sat, 07 Jan 2017 03:50:56 GMT
-*/
-
-if ( ! defined( 'NV_IS_FILE_MODULES' ) ) die( 'Stop!!!' );
+ * @Author mynukeviet (contact@mynukeviet.net)
+ * @Copyright (C) 2017 mynukeviet. All rights reserved
+ * @Createdate Sat, 07 Jan 2017 03:50:56 GMT
+ */
+if (!defined('NV_IS_FILE_MODULES')) die('Stop!!!');
 
 $sql_drop_module = array();
-$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "";
+$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data;
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_admins";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_block";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_block_cat";
@@ -37,12 +36,6 @@ $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lan
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_econtent";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_pricetype";
 $sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_pricetype_typeid";
-$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_country";
-$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_district";
-$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_province";
-$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_ward";
-$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_furniture";
-$sql_drop_module[] = "DROP TABLE IF EXISTS " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_convenient";
 
 $sql_create_module = $sql_drop_module;
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "(
@@ -50,7 +43,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   title varchar(255) NOT NULL,
   alias varchar(255) NOT NULL,
   catid int(11) NOT NULL DEFAULT '0',
-  group_id int(11) NOT NULL DEFAULT '0',
+  group_config text NOT NULL,
   hometext mediumtext NOT NULL,
   bodytext text NOT NULL,
   admin_id mediumint(8) NOT NULL DEFAULT '0',
@@ -73,11 +66,6 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   homeimgalt varchar(255) NOT NULL,
   front double unsigned NOT NULL DEFAULT '0',
   road double unsigned NOT NULL DEFAULT '0',
-  livingroom int(10) NOT NULL DEFAULT '1',
-  bedroom int(10) NOT NULL DEFAULT '1',
-  bathroom int(10) NOT NULL DEFAULT '1',
-  furniture varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  convenient varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   structure tinytext NOT NULL,
   type tinytext NOT NULL,
   provinceid mediumint(4) unsigned NOT NULL DEFAULT '0',
@@ -85,12 +73,9 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   wardid mediumint(8) unsigned NOT NULL DEFAULT '0',
   address varchar(255) NOT NULL,
   maps tinytext NOT NULL,
-  floor int(11) unsigned NOT NULL DEFAULT '1',
-  num_room int(11) unsigned NOT NULL DEFAULT '1',
   inhome tinyint(1) unsigned NOT NULL DEFAULT '0',
   allowed_comm tinyint(1) unsigned NOT NULL DEFAULT '0',
   hitstotal mediumint(8) unsigned NOT NULL DEFAULT '0',
-  hits_phone mediumint(8) unsigned NOT NULL DEFAULT '0',
   showprice tinyint(2) NOT NULL DEFAULT '0',
   contact_fullname varchar(150) NOT NULL,
   contact_email varchar(100) NOT NULL,
@@ -101,7 +86,6 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   is_queue tinyint(1) unsigned NOT NULL DEFAULT '0',
   status_admin tinyint(1) unsigned NOT NULL DEFAULT '1',
   status tinyint(1) NOT NULL DEFAULT '1',
-  admin_duyet tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (id),
   KEY catid (catid),
   KEY admin_id (admin_id)
@@ -122,7 +106,11 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_block(
   bid smallint(5) unsigned NOT NULL,
   id int(11) unsigned NOT NULL,
+  addtime int(11) unsigned NOT NULL DEFAULT '0',
   exptime int(11) unsigned NOT NULL DEFAULT '0',
+  refresh_time_last int(11) unsigned NOT NULL DEFAULT '0',
+  refresh_time_next int(11) unsigned NOT NULL DEFAULT '0',
+  refresh_lasttime int(11) unsigned NOT NULL DEFAULT '0',
   weight int(11) unsigned NOT NULL,
   UNIQUE KEY bid (bid,id)
 ) ENGINE=MyISAM";
@@ -154,7 +142,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   parentid smallint(5) unsigned NOT NULL,
   title varchar(250) NOT NULL,
   alias varchar(250) NOT NULL,
-  description text ,
+  description text,
   groups_view varchar(255) DEFAULT '',
   lev smallint(4) unsigned NOT NULL DEFAULT '0',
   sort smallint(4) unsigned NOT NULL DEFAULT '0',
@@ -168,7 +156,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config(
   config_name varchar(30) NOT NULL,
-  config_value varchar(255) NOT NULL,
+  config_value text NOT NULL,
   UNIQUE KEY config_name (config_name)
 ) ENGINE=MyISAM";
 
@@ -187,6 +175,54 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   status int(1) NOT NULL,
   PRIMARY KEY (cid)
 ) ENGINE=MyISAM";
+
+// VujiTech
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_customers(
+  id int(11) unsigned NOT NULL auto_increment,
+  groupid smallint(5),
+  customer_code varchar(250) NOT NULL default '',
+  name varchar(250) NOT NULL default '',
+  alias varchar(250) NOT NULL default '',
+  phone varchar(250) NOT NULL default '',
+  email varchar(250) NOT NULL default '',
+  provinceid mediumint(4),
+  districtid mediumint(8),
+  wardid mediumint(8),
+  address varchar(250),
+  note text,
+  source varchar(250),
+  desire varchar(250),
+  PRIMARY KEY (id),
+  UNIQUE KEY alias (alias)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_customers_group(
+  id smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  title varchar(250) NOT NULL DEFAULT '',
+  alias varchar(250) NOT NULL DEFAULT '',
+  status tinyint(4) NOT NULL default '1',
+  PRIMARY KEY (id),
+  UNIQUE KEY title (title),
+  UNIQUE KEY alias (alias)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_transactions(
+  id int(11) unsigned NOT NULL auto_increment,
+  transaction_code bigint(20) NOT NULL,
+  customer_id int(11) NOT NULL,
+  bds_id varchar(250),
+  bds_link text,
+  note text,
+  start_date bigint(20),
+  end_date bigint(20),
+  status tinyint(4) NOT NULL default '1',    
+  PRIMARY KEY (id)
+) ENGINE=MyISAM";
+
+$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_transactions_type(
+  transaction_type varchar(250)
+) ENGINE=MyISAM";
+// VujiTech End
 
 $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_images(
   id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
@@ -229,8 +265,20 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   title varchar(250) NOT NULL,
   alias varchar(250) NOT NULL,
   description text NOT NULL,
+  chudautu varchar(250) NOT NULL DEFAULT '',
+  dientich varchar(250) NOT NULL DEFAULT '',
+  sophong varchar(250) NOT NULL DEFAULT '',
+  giaban varchar(250) NOT NULL DEFAULT '',
+  giathue varchar(250) NOT NULL DEFAULT '',
+  noi_that varchar(250) NOT NULL DEFAULT '',
+  tien_ich varchar(250) NOT NULL DEFAULT '',
   descriptionhtml text NOT NULL,
+  provinceid mediumint(4) unsigned NOT NULL DEFAULT '0',
+  districtid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  wardid mediumint(8) unsigned NOT NULL DEFAULT '0',
+  image varchar(255) NOT NULL,
   status tinyint(1) NOT NULL DEFAULT '1',
+  noibat tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (id),
   UNIQUE KEY alias (alias)
 ) ENGINE=MyISAM";
@@ -268,7 +316,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   parentid smallint(5) unsigned NOT NULL,
   title varchar(250) NOT NULL,
   alias varchar(250) NOT NULL,
-  description text ,
+  description text,
   weight smallint(4) unsigned NOT NULL DEFAULT '0',
   status tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (id),
@@ -295,7 +343,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   numnews mediumint(8) NOT NULL DEFAULT '0',
   alias varchar(250) NOT NULL DEFAULT '',
   image varchar(255) DEFAULT '',
-  description text ,
+  description text,
   keywords varchar(255) DEFAULT '',
   PRIMARY KEY (tid),
   UNIQUE KEY alias (alias)
@@ -374,180 +422,71 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
 ) ENGINE=MyISAM";
 
 $array_config = array(
-    'display_data' => 0,
-    'display_type' => 'viewgrid',
-    'num_item_page' => 15,
-    'thumb_width' => 150,
-    'thumb_height' => 120,
-    'socialbutton' => 1,
-    'facebookappid' => '',
-    'allow_maps' => 1,
-    'maps_appid' => '',
-    'post_groups' => 4,
-    'post_queue' => 1,
-    'maxfilesize' => 1342177,
-    'post_user_limit' => 10,
-    'image_upload_size' => '0x1000',
-    'post_image_limit' => 10,
-    'structure_upload' => 'Ym',
-    'structure_upload_user' => 'username_Y',
-    'sizetype' => 0,
-    'priceformat' => 0,
-    'view_on_main' => 0,
-    'dec_point' => ',',
-    'thousands_sep' => '.',
-    'othertype' => 0, // 0: cung loai, 1: cung quan
-    'pricetype' => 0,
-    'refresh_allow' => 0,
-    'refresh_config' => '',
-    'refresh_auto_config' => '',
-    'refresh_default' => 0,
-    'refresh_free' => 0,
-    'allow_contact_info' => 0,
-    'itemsave' => 1,
-    'payport' => 0,
-    'specialgroup_config' => '',
-    'upgrade_group_config' => '',
-    'upgrade_group_percent' => 0,
-    'code_auto' => 0,
-    'code_format' => 'T%06s',
-    'payment_style' => 0,
-    'similar_content' => 80,
-    'similar_time' => 5,
-'money_unit' => 'đ',
-    'project_type' => 0,
-    'project_module_name' => '',
-    'project_table' => '',
-    'project_id_field' => '',
-    'project_title_field' => '',
-    'project_provinceid_field' => '',
-    'project_districtid_field' => '',
-    'project_wardid_field' => '',
-    'auto_resize' => ''
+  'display_data' => 0,
+  'display_type' => 'viewgrid',
+  'num_item_page' => 15,
+  'thumb_width' => 150,
+  'thumb_height' => 120,
+  'socialbutton' => 1,
+  'facebookappid' => '',
+  'allow_maps' => 1,
+  'maps_appid' => '',
+  'post_groups' => 4,
+  'post_queue' => 1,
+  'maxfilesize' => 1342177,
+  'post_user_limit' => 10,
+  'image_upload_size' => '0x1000',
+  'auto_resize' => 1,
+  'post_image_limit' => 10,
+  'structure_upload' => 'Ym',
+  'structure_upload_user' => 'username_Y',
+  'sizetype' => 0,
+  'priceformat' => 0,
+  'view_on_main' => 0,
+  'dec_point' => ',',
+  'thousands_sep' => '.',
+  'othertype' => 0, // 0: cung loai, 1: cung quan
+  'pricetype' => 0,
+  'refresh_allow' => 0,
+  'refresh_config' => '',
+  'refresh_auto_config' => '',
+  'refresh_default' => 0,
+  'refresh_free' => 0,
+  'allow_contact_info' => 0,
+  'itemsave' => 1,
+  'payport' => 0,
+  'specialgroup_config' => '',
+  'upgrade_group_config' => '',
+  'upgrade_group_percent' => 0,
+  'code_auto' => 0,
+  'code_format' => 'T%06s',
+  'payment_style' => 0,
+  'similar_content' => 80,
+  'similar_time' => 5,
+  'money_unit' => 'đ',
+  'project_type' => 0,
+  'project_module_name' => '',
+  'project_table' => '',
+  'project_id_field' => '',
+  'project_title_field' => '',
+  'project_provinceid_field' => '',
+  'project_districtid_field' => '',
+  'project_wardid_field' => ''
 );
 foreach ($array_config as $config_name => $config_value) {
-    $sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config (config_name, config_value) VALUES (" . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
+  $sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_config (config_name, config_value) VALUES (" . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
 }
 
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'time_reloadpage', 10)";
-$sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'refresh_next_time', " . NV_CURRENTTIME . ")";
-
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'emailcomm', '0')";
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'auto_postcomm', '1')";
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'setcomm', '4')";
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'allowed_comm', '-1')";
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'view_comm', '6')";
-$sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'tags_alias', '0')";
+$sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'tags_alias', '1')";
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'auto_tags', '0')";
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'adminscomm', '')";
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'sortcomm', '0')";
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'activecomm', '1')";
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'tags_remind', '1')";
 $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . "(lang, module, config_name, config_value) VALUES ('" . $lang . "', '" . $module_name . "', 'captcha', '1')";
-$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_country(
-  countryid smallint(4) unsigned NOT NULL AUTO_INCREMENT,
-  code varchar(10) NOT NULL,
-  title varchar(255) NOT NULL,
-  alias varchar(255) NOT NULL,
-  weight smallint(4) unsigned NOT NULL DEFAULT '0',
-  status tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (countryid),
-  UNIQUE KEY countryid (code)
-) ENGINE=MyISAM";
-
-$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_district(
-  districtid mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  code varchar(5) NOT NULL,
-  provinceid varchar(5) NOT NULL,
-  title varchar(100) NOT NULL,
-  alias varchar(100) NOT NULL,
-  type varchar(30) NOT NULL,
-  location varchar(30) NOT NULL,
-  weight mediumint(8) unsigned NOT NULL DEFAULT '0',
-  status tinyint(1) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (districtid),
-  KEY provinceid (provinceid)
-) ENGINE=MyISAM";
-
-$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_province(
-  provinceid mediumint(4) unsigned NOT NULL AUTO_INCREMENT,
-  code varchar(5) NOT NULL,
-  countryid varchar(10) NOT NULL,
-  title varchar(100) NOT NULL,
-  alias varchar(100) NOT NULL,
-  type varchar(30) NOT NULL,
-  weight smallint(4) unsigned NOT NULL DEFAULT '0',
-  status tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (provinceid)
-) ENGINE=MyISAM";
-
-$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_ward(
-  wardid mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  districtid varchar(5) NOT NULL,
-  title varchar(100) NOT NULL,
-  alias varchar(100) NOT NULL,
-  code varchar(5) NOT NULL,
-  type varchar(30) NOT NULL,
-  location varchar(30) NOT NULL,
-  status tinyint(1) unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (wardid),
-  UNIQUE KEY alias (alias),
-  UNIQUE KEY code (code),
-  KEY districtid (districtid)
-) ENGINE=MyISAM";
-$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_furniture (
-  id smallint(4) unsigned NOT NULL AUTO_INCREMENT,
-  title varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên',
-  gia_tri varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Giá trị',
-  weight smallint(4) unsigned NOT NULL DEFAULT '0',
-  status tinyint(1) NOT NULL DEFAULT '1' COMMENT 'Trạng thái',
-  PRIMARY KEY (id),
-  UNIQUE KEY title (title)
-) ENGINE=MyISAM";
-
-$sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_convenient (
-  id smallint(4) unsigned NOT NULL AUTO_INCREMENT,
-  title varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tên',
-  weight smallint(4) unsigned NOT NULL DEFAULT '0',
-  status tinyint(1) NOT NULL DEFAULT '1' COMMENT 'Trạng thái',
-  PRIMARY KEY (id),
-  UNIQUE KEY title (title)
-) ENGINE=MyISAM";
-
-$data = array();
-$data['allow_type'] = 1;
-
-foreach ($data as $config_name => $config_value) {
-    $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($module_name) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
-}
-
-$sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_furniture (id, title, gia_tri, weight, status) VALUES
-(4, 'Máy Lạnh', '', 4, 1),
-(1, 'Tivi', '', 1, 1),
-(2, 'Sofa', '', 2, 1),
-(3, 'Ban Công', '', 3, 1),
-(5, 'Microwave', '', 5, 1),
-(6, 'Tủ Lạnh', '', 6, 1),
-(7, 'Máy Giặt', '', 7, 1),
-(8, 'Giường Ngủ', '', 8, 1),
-(9, 'Tủ Quần Áo', '', 9, 1),
-(10, 'Intercom', '', 10, 1),
-(11, 'Bàn Ăn', '', 11, 1),
-(12, 'Internet', '', 12, 1),
-(13, 'Truyền Hình Cáp', '', 13, 1)";
-
-$sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_convenient (id, title, weight, status) VALUES
-(1, 'Ngân hàng', 3, 1),
-(2, 'Chợ', 2, 1),
-(14, 'Phòng xông hơi', 8, 1),
-(10, 'Trường học', 4, 1),
-(11, 'Siêu thị', 5, 1),
-(12, 'Bảo vệ', 6, 1),
-(13, 'Phòng tập Gym', 7, 1),
-(17, 'Khu vui chơi', 9, 1),
-(18, 'Sân tennis', 10, 1),
-(19, 'Nhà Hàng', 11, 1),
-(20, 'Coffee', 12, 1),
-(21, 'Thang Máy', 13, 1),
-(22, 'Yoga', 14, 1),
-(23, 'Hồ Bơi', 1, 1)";

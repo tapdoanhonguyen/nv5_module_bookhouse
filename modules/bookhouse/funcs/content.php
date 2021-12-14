@@ -73,8 +73,8 @@ if (! $id) {
     $data['projectid'] = 0;
     $data['homeimgfile'] = '';
     $data['front'] = 0;
-    $data['so_tang'] = 0;
-    $data['so_phong'] = 0;
+    $data['floor'] = 0;
+    $data['num_room'] = 0;
     $data['road'] = 0;
     $data['structure'] = '';
     $data['type'] = '';
@@ -1085,9 +1085,12 @@ if (! empty($data['homeimgfile']) and file_exists(NV_UPLOADS_REAL_DIR . '/' . $m
 // LẤY SĐT ĐỊA CHỈ CỦA USER
 if(defined('NV_IS_USER') and empty($id))
 {
-$dc_sdt = $db->query("SELECT phone, address FROM nv4_users_info WHERE userid =".$user_info['userid'])->fetch();
-$data['contact_phone'] = $dc_sdt['phone'];
-$data['contact_address'] = $dc_sdt['address'];
+	$field= $db->query("SELECT count(field) FROM nv4_users_field WHERE field = 'phone' OR field = 'address'")->fetchColumn();
+	if($field){
+		$dc_sdt = $db->query("SELECT phone, address FROM nv4_users_info WHERE userid =".$user_info['userid'])->fetch();
+		$data['contact_phone'] = $dc_sdt['phone'];
+		$data['contact_address'] = $dc_sdt['address'];
+	}
 }
 $xtpl->assign('DATA', $data);
 

@@ -50,7 +50,7 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   title varchar(255) NOT NULL,
   alias varchar(255) NOT NULL,
   catid int(11) NOT NULL DEFAULT '0',
-  group_id int(11) NOT NULL DEFAULT '0',
+  groupid int(11) NOT NULL DEFAULT '0',
   hometext mediumtext NOT NULL,
   bodytext text NOT NULL,
   admin_id mediumint(8) NOT NULL DEFAULT '0',

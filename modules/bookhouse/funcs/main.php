@@ -83,7 +83,7 @@ if ( $nv_Request->isset_request( 'get_alias_title', 'post' ) )
 
 
 $page_title = 'Tin dành cho bạn';
-$description = $array_cat[$catid]['description'];
+//$description = $array_cat[$catid]['description'];
 
 $page = 1;
 if( isset( $array_op[0] ) and substr( $array_op[0], 0, 5 ) == 'page-' )
@@ -109,8 +109,8 @@ if (empty($contents)) {
 		
 			$num_items = $db_slave->query($db_slave->sql())->fetchColumn();
 		
-		$db_slave->select('t1.id, t1.catid, t1.group_id, t1.title, t1.alias, t1.price, t1.showprice, t1.edittime, t1.ordertime, t1.area, t1.homeimgfile, t1.homeimgthumb, t1.address, t1.provinceid, t1.districtid, t1.wardid, t2.image') 
-			->join('LEFT JOIN ' . NV_PREFIXLANG . '_' . $module_data .'_block_cat t2 ON t2.bid = t1.group_id')
+		$db_slave->select('t1.id, t1.catid, t1.groupid, t1.title, t1.alias, t1.price, t1.showprice, t1.edittime, t1.ordertime, t1.area, t1.homeimgfile, t1.homeimgthumb, t1.address, t1.provinceid, t1.districtid, t1.wardid, t2.image, t1.addtime, t1.admin_id, t1.price_time') 
+			->join('LEFT JOIN ' . NV_PREFIXLANG . '_' . $module_data .'_block_cat t2 ON t2.bid = t1.groupid')
 			->order(' t2.weight DESC,t1.ordertime DESC') 
 			->limit($per_page)
 			->offset(($page - 1) * $per_page);

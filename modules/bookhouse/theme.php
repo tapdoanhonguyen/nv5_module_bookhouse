@@ -116,7 +116,7 @@ function nv_theme_viewcat($page_title,$array_data, $generate_page = '', $viewtyp
     
     $xtpl = new XTemplate('viewcat.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_file);
     $xtpl->assign('LANG', $lang_module);
-    $xtpl->assign('CAT', $array_cat[$catid]);
+    //$xtpl->assign('CAT', $array_cat[$catid]);
     
     if (! empty($array_data)) {
         $xtpl->assign('DATA', call_user_func('nv_theme_' . $viewtype,$page_title, $array_data));

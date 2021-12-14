@@ -312,7 +312,27 @@
 					</select>
 				</div>
 			</div>
-
+			<div class="panel panel-default">
+				<div class="panel-heading">Nội thất</div>
+				<div class="panel-body">
+					<!-- BEGIN: noi_that -->
+						<div class="noi_that">
+							<input type="checkbox" name="noi_that[]" {checked} value="{noi_that.id}"> {noi_that.title}
+						</div>
+						<!-- END: noi_that -->
+				</div>
+			</div>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">Tiện ích</div>
+				<div class="panel-body">
+					<!-- BEGIN: tien_ich -->
+						<div class="tien_ich">
+							<input type="checkbox" name="tien_ich[]" {checked} value="{tien_ich.id}"> {tien_ich.title}
+						</div>
+						<!-- END: tien_ich -->
+				</div>
+			</div>
 			<div class="panel panel-default">
 				<div class="panel-heading">{LANG.way}</div>
 				<div class="panel-body">

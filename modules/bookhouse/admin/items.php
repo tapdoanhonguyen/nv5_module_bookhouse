@@ -16,7 +16,7 @@ if($nv_Request->isset_request('id_tinhthanh', 'get'))
 	$id_tinhthanh = $nv_Request->get_int('id_tinhthanh','get', 0);
 	if($id_tinhthanh > 0)
 	{
-		$list_quan = $db->query('SELECT * FROM nv4_location_district WHERE status = 1 and provinceid = '. $id_tinhthanh .' ORDER BY weight ASC')->fetchAll();
+		$list_quan = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_district WHERE status = 1 and provinceid = '. $id_tinhthanh .' ORDER BY weight ASC')->fetchAll();
 		$html = '<option value=0>-- Chọn quận huyện --</option>';
 					foreach($list_quan as $l)
 					{
@@ -32,7 +32,7 @@ if($nv_Request->isset_request('id_quanhuyen', 'get'))
 	$id_quanhuyen = $nv_Request->get_int('id_quanhuyen','get', 0);
 	if($id_quanhuyen > 0)
 	{//print($id_quanhuyen);die;
-		$list_quan = $db->query('SELECT * FROM nv4_location_ward WHERE status = 1 and districtid = '. $id_quanhuyen .' ORDER BY title ASC')->fetchAll();
+		$list_quan = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_ward WHERE status = 1 and districtid = '. $id_quanhuyen .' ORDER BY title ASC')->fetchAll();
 		$html = '<option value=0>-- Chọn xã phường --</option>';
 					foreach($list_quan as $l)
 					{
@@ -268,6 +268,9 @@ if ($nv_Request->isset_request('add', 'get') or $nv_Request->isset_request('edit
         $data['catid'] = 0;
         $data['room'] = array();
         $data['area'] = 0;
+		$data['noi_that'] = '';
+        $data['formid'] = '';
+        $data['tien_ich'] = '';
         $data['size_v'] = 0;
         $data['size_h'] = 0;
         $data['price'] = 0;
@@ -276,8 +279,8 @@ if ($nv_Request->isset_request('add', 'get') or $nv_Request->isset_request('edit
         $data['homeimgfile'] = '';
         $data['front'] = 0;
         $data['road'] = 0;
-        $data['so_tang'] = 0;
-        $data['so_phong'] = 0;
+        $data['floor'] = 1;
+        $data['num_room'] = 1;
         $data['structure'] = '';
         $data['type'] = '';
         $data['hometext'] = '';
@@ -425,8 +428,8 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
         $data['front'] = str_replace(',', '.', $data['front']);
         $data['road'] = $nv_Request->get_string('road', 'post', '');
         $data['road'] = str_replace(',', '.', $data['road']);
-		$data['so_tang'] = $nv_Request->get_int('so_tang', 'post', 0);
-		$data['so_phong'] = $nv_Request->get_int('so_phong', 'post', 0);
+		$data['floor'] = $nv_Request->get_int('floor', 'post', 1);
+		$data['num_room'] = $nv_Request->get_int('num_room', 'post', 1);
         $data['structure'] = $nv_Request->get_textarea('structure', '', NV_ALLOWED_HTML_TAGS);
         $data['type'] = $nv_Request->get_textarea('type', '', NV_ALLOWED_HTML_TAGS);
         $data['hometext'] = $nv_Request->get_string('hometext', 'post', '');
@@ -460,7 +463,13 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
         $data['contact_email'] = $nv_Request->get_title('contact_email', 'post', '');
         $data['contact_phone'] = $nv_Request->get_title('contact_phone', 'post', '');
         $data['contact_address'] = $nv_Request->get_title('contact_address', 'post', '');
-        
+        $tien_ich = array_unique($nv_Request->get_typed_array('tien_ich', 'post,get', 'int', array()));
+        $data['tien_ich'] = implode(',', $tien_ich); //print_r($tien_ich );die;
+
+        $noi_that = array_unique($nv_Request->get_typed_array('noi_that', 'post,get', 'int', array()));
+        $data['noi_that'] = implode(',', $noi_that);
+		$formid = array_unique($nv_Request->get_typed_array('formid', 'post,get', 'int', array()));
+        $data['formid'] = implode(',', $formid);
         if (preg_match('/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/', $nv_Request->get_string('exptime', 'post'), $m)) {
             $hour = $nv_Request->get_int('exptime_hour', 'post', 0);
             $min = $nv_Request->get_int('exptime_min', 'post', 0);
@@ -550,6 +559,8 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
 				    price_time = :price_time,
 					money_unit = :money_unit,
 					typeid = :typeid,
+					noi_that = :noi_that,
+					tien_ich = :tien_ich,
 					projectid = :projectid,
 					way_id = :way_id,
 					legal_id = :legal_id,
@@ -558,8 +569,8 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
 					homeimgalt = :homeimgalt,
 					front = :front,
 					road = :road,
-					so_tang = :so_tang,
-					so_phong = :so_phong,
+					floor = :floor,
+					num_room = :num_room,
 					structure = :structure,
 				    type = :type,
 					provinceid = :provinceid,
@@ -589,6 +600,9 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
                 $stmt->bindParam(':exptime', $data['exptime'], PDO::PARAM_INT);
                 $stmt->bindParam(':code', $data['code'], PDO::PARAM_STR);
                 $stmt->bindParam(':area', $data['area'], PDO::PARAM_STR);
+				$stmt->bindParam(':tien_ich', $data['tien_ich'], PDO::PARAM_STR);
+                $stmt->bindParam(':formid', $data['formid'], PDO::PARAM_STR);
+                $stmt->bindParam(':noi_that', $data['noi_that'], PDO::PARAM_STR);
                 $stmt->bindParam(':size_v', $data['size_v'], PDO::PARAM_STR);
                 $stmt->bindParam(':size_h', $data['size_h'], PDO::PARAM_STR);
                 $stmt->bindParam(':price', $data['price'], PDO::PARAM_STR);
@@ -602,8 +616,8 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
                 $stmt->bindParam(':homeimgalt', $data['homeimgalt'], PDO::PARAM_STR);
                 $stmt->bindParam(':front', $data['front'], PDO::PARAM_STR);
                 $stmt->bindParam(':road', $data['road'], PDO::PARAM_STR);
-                $stmt->bindParam(':so_tang', $data['so_tang'], PDO::PARAM_INT);
-                $stmt->bindParam(':so_phong', $data['so_phong'], PDO::PARAM_INT);
+                $stmt->bindParam(':floor', $data['floor'], PDO::PARAM_INT);
+                $stmt->bindParam(':num_room', $data['num_room'], PDO::PARAM_INT);
                 $stmt->bindParam(':structure', $data['structure'], PDO::PARAM_STR);
                 $stmt->bindParam(':type', $data['type'], PDO::PARAM_STR);
                 $stmt->bindParam(':provinceid', $data['provinceid'], PDO::PARAM_INT);
@@ -669,9 +683,9 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
                 }
             } else {
                 $sql = 'INSERT INTO ' . NV_PREFIXLANG . '_' . $module_data . ' (title, alias, catid, hometext, bodytext, admin_id, addtime, edittime, exptime, code, area, size_v, size_h, price, price_time, money_unit, typeid, projectid, way_id, legal_id, homeimgfile, homeimgthumb, 
-                homeimgalt, front, road, so_tang, so_phong, structure, type, provinceid, districtid, wardid, address, maps, inhome, allowed_comm, hitstotal, showprice, contact_fullname, contact_email, contact_phone, contact_address, ordertime)
+                homeimgalt, front, road, floor, num_room, noi_that, tien_ich, structure, type, provinceid, districtid, wardid, address, maps, inhome, allowed_comm, hitstotal, showprice, contact_fullname, contact_email, contact_phone, contact_address, ordertime)
 				VALUES (:title, :alias, :catid, :hometext, :bodytext, :admin_id, ' . NV_CURRENTTIME . ', ' . NV_CURRENTTIME . ', :exptime,
-				:code, :area, :size_v, :size_h, :price, :price_time, :money_unit, :typeid, :projectid, :way_id, :legal_id, :homeimgfile, ' . $data['homeimgthumb'] . ', :homeimgalt, :front, :road, :so_tang, :so_phong, :structure, :type, :provinceid, :districtid, :wardid, :address, :maps, :inhome,
+				:code, :area, :size_v, :size_h, :price, :price_time, :money_unit, :typeid, :projectid, :way_id, :legal_id, :homeimgfile, ' . $data['homeimgthumb'] . ', :homeimgalt, :front, :road, :floor, :num_room, :noi_that, :tien_ich, :structure, :type, :provinceid, :districtid, :wardid, :address, :maps, :inhome,
 				:allowed_comm, 0, :showprice, :contact_fullname, :contact_email, :contact_phone, :contact_address, :ordertime)';
                 
                 $data_insert = array();
@@ -697,8 +711,10 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
                 $data_insert['homeimgalt'] = $data['homeimgalt'];
                 $data_insert['front'] = $data['front'];
                 $data_insert['road'] = $data['road'];
-                $data_insert['so_tang'] = $data['so_tang'];
-                $data_insert['so_phong'] = $data['so_phong'];
+                $data_insert['floor'] = $data['floor'];
+                $data_insert['num_room'] = $data['num_room'];
+				$data_insert['noi_that'] = $data['noi_that'];
+                $data_insert['tien_ich'] = $data['tien_ich'];
                 $data_insert['structure'] = $data['structure'];
                 $data_insert['type'] = $data['type'];
                 $data_insert['provinceid'] = $data['provinceid'];
@@ -885,8 +901,8 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
     
     $data['front'] = ! empty($data['front']) ? $data['road'] : '';
     $data['road'] = ! empty($data['road']) ? $data['road'] : '';
-    $data['so_tang'] = $data['so_tang'] == 0 ? '' : $data['so_tang'];
-    $data['so_phong'] = $data['so_phong'] == 0 ? '' : $data['so_phong'];
+    $data['floor'] = $data['floor'] == 0 ? '' : $data['floor'];
+    $data['num_room'] = $data['num_room'] == 0 ? '' : $data['num_room'];
 	
     $data['exptime_f'] = ! empty($data['exptime']) ? nv_date('d/m/Y', $data['exptime']) : '';
     $data['queue_reason_style'] = $data['queue'] != 2 ? 'style="display: none"' : '';
@@ -938,7 +954,50 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
             $xtpl->parse('main.type');
         }
     }
-    
+    // lấy danh sách nội thất ra
+    $ds_noithat = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_furniture ORDER BY id DESC')->fetchAll();
+
+    if (!empty($ds_noithat)) {
+        $mang_noithat = explode(',', $data['noi_that']);
+        foreach ($ds_noithat as $ti) {
+            if (in_array($ti['id'], $mang_noithat))
+                $xtpl->assign('checked', 'checked=checked');
+            else $xtpl->assign('checked', '');
+            $xtpl->assign('noi_that', $ti);
+            $xtpl->parse('main.noi_that');
+        }
+    }
+	if (!empty($array_status)) {
+        foreach ($array_status as $ti) {
+			$ti['selected'] = $ti['id'] == $data['product_status'] ? 'selected="selected"' : '';
+
+            $xtpl->assign('PSTATUS', $ti);
+            $xtpl->parse('main.status');
+        }
+    }
+	if (!empty($array_type)) {
+        $array_formid = explode(',', $data['formid']);
+        foreach ($array_type as $ti) {
+            if (in_array($ti['id'], $array_formid))
+                $xtpl->assign('fchecked', 'checked=checked');
+            else $xtpl->assign('fchecked', '');
+            $xtpl->assign('FORMID', $ti);
+            $xtpl->parse('main.formid');
+        }
+    }
+    // lấy danh sách tiện ích ra
+    $ds_tienich = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_convenient ORDER BY id DESC')->fetchAll();
+
+    if (!empty($ds_tienich)) {
+        $mang_tienich = explode(',', $data['tien_ich']);
+        foreach ($ds_tienich as $ti) {
+            if (in_array($ti['id'], $mang_tienich))
+                $xtpl->assign('checked', 'checked=checked');
+            else $xtpl->assign('checked', '');
+            $xtpl->assign('tien_ich', $ti);
+            $xtpl->parse('main.tien_ich');
+        }
+    }
     if (! empty($array_projects)) {
         foreach ($array_projects as $projects) {
             $projects['selected'] = $projects['id'] == $data['projectid'] ? 'selected="selected"' : '';
@@ -1237,7 +1296,7 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
 				if($queue)
 				{				
 					// lấy tất cả tỉnh thành ra
-					$list_tinh = $db->query('SELECT * FROM nv4_location_province WHERE status = 1 ORDER BY weight ASC')->fetchAll();
+					$list_tinh = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_province WHERE status = 1 ORDER BY weight ASC')->fetchAll();
 					foreach($list_tinh as $l)
 					{
 						if($l['provinceid'] == $row['provinceid'])
@@ -1251,7 +1310,7 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
 					if($row['districtid'] > 0 and $row['provinceid'] > 0)
 					{
 						// lấy tất cả quận thuộc tỉnh thành đó ra thành ra
-						$list_quan = $db->query('SELECT * FROM nv4_location_district WHERE status = 1 and provinceid = '. $row['provinceid'] .' ORDER BY weight ASC')->fetchAll();
+						$list_quan = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_district WHERE status = 1 and provinceid = '. $row['provinceid'] .' ORDER BY weight ASC')->fetchAll();
 						foreach($list_quan as $l)
 						{
 							if($l['districtid'] == $row['districtid'])
@@ -1265,7 +1324,7 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
 					if($row['districtid'] > 0 and $row['provinceid'] > 0 and $row['wardid'] > 0)
 					{
 						// lấy tất cả xã thuộc quận đó ra thành ra
-						$list_xa = $db->query('SELECT * FROM nv4_location_ward WHERE status = 1 and districtid = '. $row['districtid'] .' ORDER BY title ASC')->fetchAll();
+						$list_xa = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_ward WHERE status = 1 and districtid = '. $row['districtid'] .' ORDER BY title ASC')->fetchAll();
 						foreach($list_xa as $l)
 						{
 							if($l['wardid'] == $row['wardid'])

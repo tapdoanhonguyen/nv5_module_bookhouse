@@ -80,6 +80,8 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   wardid mediumint(8) unsigned NOT NULL DEFAULT '0',
   address varchar(255) NOT NULL,
   maps tinytext NOT NULL,
+  floor int(11) unsigned NOT NULL DEFAULT '1',
+  num_room int(11) unsigned NOT NULL DEFAULT '1',
   inhome tinyint(1) unsigned NOT NULL DEFAULT '0',
   allowed_comm tinyint(1) unsigned NOT NULL DEFAULT '0',
   hitstotal mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -513,3 +515,34 @@ $data['allow_type'] = 1;
 foreach ($data as $config_name => $config_value) {
     $sql_create_module[] = "INSERT INTO " . NV_CONFIG_GLOBALTABLE . " (lang, module, config_name, config_value) VALUES ('" . $lang . "', " . $db->quote($module_name) . ", " . $db->quote($config_name) . ", " . $db->quote($config_value) . ")";
 }
+
+$sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_furniture (id, title, gia_tri, weight, status) VALUES
+(4, 'Máy Lạnh', '', 4, 1),
+(1, 'Tivi', '', 1, 1),
+(2, 'Sofa', '', 2, 1),
+(3, 'Ban Công', '', 3, 1),
+(5, 'Microwave', '', 5, 1),
+(6, 'Tủ Lạnh', '', 6, 1),
+(7, 'Máy Giặt', '', 7, 1),
+(8, 'Giường Ngủ', '', 8, 1),
+(9, 'Tủ Quần Áo', '', 9, 1),
+(10, 'Intercom', '', 10, 1),
+(11, 'Bàn Ăn', '', 11, 1),
+(12, 'Internet', '', 12, 1),
+(13, 'Truyền Hình Cáp', '', 13, 1)";
+
+$sql_create_module[] = "INSERT INTO " . $db_config['prefix'] . "_" . $lang . "_" . $module_data . "_convenient (id, title, weight, status) VALUES
+(1, 'Ngân hàng', 3, 1),
+(2, 'Chợ', 2, 1),
+(14, 'Phòng xông hơi', 8, 1),
+(10, 'Trường học', 4, 1),
+(11, 'Siêu thị', 5, 1),
+(12, 'Bảo vệ', 6, 1),
+(13, 'Phòng tập Gym', 7, 1),
+(17, 'Khu vui chơi', 9, 1),
+(18, 'Sân tennis', 10, 1),
+(19, 'Nhà Hàng', 11, 1),
+(20, 'Coffee', 12, 1),
+(21, 'Thang Máy', 13, 1),
+(22, 'Yoga', 14, 1),
+(23, 'Hồ Bơi', 1, 1)";

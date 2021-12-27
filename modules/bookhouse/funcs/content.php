@@ -855,9 +855,9 @@ list ($width, $height) = explode('x', $array_config['image_upload_size']);
 		 
 		 }
 		 
-		 // THÊM NHÀ MÔI GIỚI TẠI ĐÂY
+		/*  // THÊM NHÀ MÔI GIỚI TẠI ĐÂY
 		 // KIỂM TRA NẾU SĐT CHƯA CÓ TRONG ĐĂNG KÝ NHÀ MÔI GIỚI THÌ ĐĂNG THÌ NHÀ MÔI GIỚI MỚI
-		 $tontai_moigioi = $db->query("SELECT id FROM nv4_danh_ba_rows WHERE company like '".$data['contact_phone']."'")->fetchColumn();
+		 $tontai_moigioi = $db->query("SELECT id FROM " . NV_PREFIXLANG . "_" . $module_data . "_contact WHERE company like '".$data['contact_phone']."'")->fetchColumn();
 		 if(!$tontai_moigioi)
 		 {
 			// THÊM NHÀ MÔI GIỚI
@@ -873,7 +873,7 @@ list ($width, $height) = explode('x', $array_config['image_upload_size']);
 	
 				
 				
-				$sql = "INSERT INTO nv4_danh_ba_rows (company, tenkhac, alias, address, tinhthanh, quanhuyen, xaphuong, phone, telephone, fax, email, website, vatcode, logo, description, userid, add_date, nhom_hotvip) VALUES ('".$data['contact_phone']."', '".$data['contact_phone']."','".$data['alias']."', '".$data['contact_address']."', ".$data['provinceid'].", ".$data['districtid'].", ".$data['wardid'].", '".$data['contact_phone']."', '".$data['contact_phone']."', '', '".$data['contact_email']."', '', '', '', '', '".$user_info['userid']."', ".$row['add_date'].", ".$row['nhomtin'].")";
+				$sql = "INSERT INTO " . NV_PREFIXLANG . "_" . $module_data . "_contact (company, tenkhac, alias, address, tinhthanh, quanhuyen, xaphuong, phone, telephone, fax, email, website, vatcode, logo, description, userid, add_date, nhom_hotvip) VALUES ('".$data['contact_phone']."', '".$data['contact_phone']."','".$data['alias']."', '".$data['contact_address']."', ".$data['provinceid'].", ".$data['districtid'].", ".$data['wardid'].", '".$data['contact_phone']."', '".$data['contact_phone']."', '', '".$data['contact_email']."', '', '', '', '', '".$user_info['userid']."', ".$row['add_date'].", ".$row['nhomtin'].")";
 				
 				//die($sql);
 				// THÊM KHU VỰC HOẠT ĐỘNG CỦA NHÀ MÔI GIỚI
@@ -882,11 +882,11 @@ list ($width, $height) = explode('x', $array_config['image_upload_size']);
 				
 				
 				
-				$thuchien = $db->query( "INSERT INTO nv4_danh_ba_kv (id_tv, title) VALUES ( '".$data['contact_phone']."', '".$data['contact_address']."')" ); 
+				$thuchien = $db->query( "INSERT INTO " . NV_PREFIXLANG . "_" . $module_data . "_area (id_tv, title) VALUES ( '".$data['contact_phone']."', '".$data['contact_address']."')" ); 
 				
 				
 
-		 }
+		 } */
       
 		 if (defined('NV_IS_USER')) {
 			if($is_spam)

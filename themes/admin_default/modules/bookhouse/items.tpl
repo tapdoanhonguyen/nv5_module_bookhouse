@@ -535,10 +535,10 @@ $('.nhom_tin input[type="checkbox"]').on('change', function() {
 	var items_image_del = '{LANG.items_image_del}';
 
 	$(document).ready(function() {
-		$('.sselect2').select2({
+		 $('.sselect2').select2({
 			language : '{NV_LANG_INTERFACE}',
 			theme : 'bootstrap'
-		});
+		}); 
 
 		$(".datepicker").datepicker({
 			dateFormat: "dd/mm/yy",
@@ -686,7 +686,6 @@ $.ajax({
 			url : nv_base_siteurl + 'index.php?' + nv_lang_variable + '=' + nv_lang_data + '&' + nv_name_variable + '=' + nv_module_name + '&' + nv_fc_variable + '=ajax&nocache=' + new Date().getTime(),
 			data : 'getprojects=1&type=' + type + '&value=' + value,
 			success : function(data) {
-				$('#projectid').html(data);
 			}
 		});
 	}

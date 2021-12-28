@@ -45,6 +45,11 @@ if (empty($data_content)) {
     $nv_redirect = nv_url_rewrite(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name, true);
     redict_link($lang_module['detail_do_not_view'], $lang_module['redirect_to_back_home'], $nv_redirect);
 }
+$room_detail = array();
+$sql = $db->query('SELECT iid, rid, num FROM ' . NV_PREFIXLANG . '_' . $module_data . '_rooms_detail WHERE iid = ' . $id);
+while ($row = $sql->fetch()) {
+    $room_detail[] = $row;
+}
 
 $location = new Location();
 $module_url = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name;
@@ -115,7 +120,26 @@ if ($array_config['othertype'] == 0) {
     $price = $data_content['price'] + ($data_content['price'] * 30) / 100;
     $where = 'id != ' . $id . ' AND price > 0 AND wardid > 0 AND wardid = ' . $data_content['wardid'] . ' AND status=1 AND status_admin=1 AND is_queue=0 AND price <= ' . $price . ' AND price >= ' . $data_content['price'];
 }
-
+// comment
+if (isset($site_mods['comment']) and isset($module_config[$module_name]['activecomm'])) {
+    define('NV_COMM_ID', $data_content['id']); // ID bài viết
+    define('NV_COMM_AREA', $module_info['funcs'][$op]['func_id']); // để đáp ứng comment ở bất cứ đâu không cứ là bài viết
+                                                                   // check allow comemnt
+    $allowed = $module_config[$module_name]['allowed_comm']; // tuy vào module để lấy cấu hình. Nếu là module news thì có cấu hình theo bài viết
+    if ($allowed == '-1') {
+        $allowed = $data_content['allowed_comm'];
+    }
+    define('NV_PER_PAGE_COMMENT', 5); // Số bản ghi hiển thị bình luận
+    require_once NV_ROOTDIR . '/modules/comment/comment.php';
+    $area = (defined('NV_COMM_AREA')) ? NV_COMM_AREA : 0;
+    $checkss = md5($module_name . '-' . $area . '-' . NV_COMM_ID . '-' . $allowed . '-' . NV_CACHE_PREFIX);
+    
+    // get url comment
+    $url_info = parse_url($client_info['selfurl']);
+    $content_comment = nv_comment_module($module_name, $checkss, $area, NV_COMM_ID, $allowed, 1);
+} else {
+    $content_comment = '';
+}
 // Du an
 $data_content['project'] = '';
 if($data_content['projectid'] > 0){
@@ -276,7 +300,7 @@ $base_url = $array_cat[$data_content['catid']]['link'] . '/' . $data_content['al
 $generate_page = nv_alias_page($page_title, $base_url, $num_items, $per_page, $page);
 	
 $checkss = md5($data_content['id'] . $client_info['session_id'] . $global_config['sitekey']);
-$contents = nv_theme_bookhouse_detail($base_url,$tt_nhom,$data_content, $array_keyword, $data_others, $checkss, $content_comment, $generate_page);
+$contents = nv_theme_bookhouse_detail($base_url,$tt_nhom,$data_content, $room_detail, $array_keyword, $data_others, $checkss, $content_comment, $generate_page);
 
 $page_title = $data_content['title'];
 $key_words = implode(', ', $key_words);

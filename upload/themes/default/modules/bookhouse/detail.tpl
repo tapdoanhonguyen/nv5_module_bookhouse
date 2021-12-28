@@ -87,11 +87,7 @@
 				<strong>{LANG.way}:</strong> {DATA.way}
 			</div>
 			<!-- END: way -->
-			<!-- BEGIN: area -->
-			<div class="gia_dang_dt">
-				<span class="bold">{LANG.area}:</span> {DATA.area} m<sup>2</sup>
-			</div>
-			<!-- END: area -->
+			
 			<!-- BEGIN: legal -->
 			<div class="gia_dang_dt">
 				<strong>{LANG.legal}:</strong> {DATA.legal}
@@ -130,7 +126,161 @@
 			
 		
 		</div>
-		 
+		<div class="info-basic">
+			<div class="title">
+				{LANG.info_d}
+			</div>
+				<div class="content">
+					<div class="row">	
+						<!-- BEGIN: area -->
+						<div class="col-md-12">
+							<div class="clearfix">
+								<div class="border-bottom">
+									<div class="col-md-16 col-xs-14 mrgl-15">
+										{LANG.area}
+									</div>
+									<div class="col-md-8 col-xs-10 mrgl-15">
+										{DATA.area} {LANG.m2}
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END: area -->
+						<div class="col-md-12">
+							<div class="clearfix">
+								<div class="border-bottom">
+									<div class="col-md-16 col-xs-14 mrgl-15">
+										{LANG.phongngu}
+									</div>
+									<div class="col-md-8 col-xs-10 mrgl-15">
+										{DATA.phong_ngu}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="clearfix">
+								<div class="border-bottom">
+							
+								<div class="col-md-16 col-xs-14 mrgl-15">
+									{LANG.cd}
+								</div>
+								<div class="col-md-8 col-xs-10 mrgl-15">
+									{LANG.capnhat}
+								</div>
+							
+							</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="clearfix">
+								<div class="border-bottom">
+									<div class="col-md-16 col-xs-14 mrgl-15">
+										{LANG.phongtam_a}
+									</div>
+									<div class="col-md-8 col-xs-10 mrgl-15">
+										{DATA.phong_tam}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="clearfix">
+								<div class="border-bottom">
+									<div class="col-md-16 col-xs-14 mrgl-15">
+										{LANG.cr}
+									</div>
+									<div class="col-md-8 col-xs-10 mrgl-15">
+										{LANG.capnhat}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="clearfix">
+								<div class="border-bottom">
+									<div class="col-md-16 col-xs-14 mrgl-15">
+										{LANG.thue_ban}
+									</div>
+									<div class="col-md-8 col-xs-10 mrgl-15">
+										{DATA.price} <span style="text-transform: uppercase;">{DATA.money_unit} </span>/{DATA.price_time}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="clearfix">
+								<div class="border-bottom">
+									<div class="col-md-16 col-xs-14 mrgl-15">
+										{LANG.noi_that}
+									</div>
+									<div class="col-md-8 col-xs-10 mrgl-15">
+										{noi_that_daydu}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="clearfix">
+								<div class="border-bottom">
+									<div class="col-md-16 col-xs-14 mrgl-15">
+										{LANG.tien_ich}
+									</div>
+									<div class="col-md-8 col-xs-10 mrgl-15">
+										{tien_ich_daydu}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+		<div class="info-basic">
+			<div class="title">
+				{LANG.noi_that}
+			</div>
+			<div class="content">
+				<div class="row">
+					<!-- BEGIN: noi_that -->
+						<div class="col-md-12">
+							<div class="clearfix">
+								<div class="border-bottom">
+									<div class="col-md-16 col-xs-14 mrgl-15">
+										{noi_that.title}
+									</div>
+									<div class="col-md-8 col-xs-10 mrgl-15">
+										{checked}
+									</div>
+								</div>
+							</div>
+						</div>
+					<!-- END: noi_that -->
+				</div>
+			</div>
+		</div>
+		<div class="info-basic">
+			<div class="title">
+				{LANG.tien_ich}
+			</div>
+			<div class="content">
+				<div class="row">
+					<!-- BEGIN: tien_ich -->
+						<div class="col-md-12">
+							<div class="clearfix">
+								<div class="border-bottom">
+									<div class="col-md-16 col-xs-14 mrgl-15">
+										{tien_ich.title}
+									</div>
+									<div class="col-md-8 col-xs-10 mrgl-15">
+										{checked}
+									</div>
+								</div>
+							</div>
+						</div>
+					<!-- END: tien_ich -->
+				</div>
+			</div>
+		</div> 
 		<div class="panel panel-default socialbutton">
 		<div class="panel-body">
 			<ul class="pull-left" style="padding: 0" class="list-inline">

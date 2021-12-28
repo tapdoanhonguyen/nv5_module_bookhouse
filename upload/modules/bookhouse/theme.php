@@ -615,9 +615,9 @@ function nv_theme_viewgrid($page_title,$array_data)
  * @return
  *
  */
-function nv_theme_bookhouse_detail($base_url, $tt_nhom, $array_data, $array_keyword, $data_others, $checkss, $content_comment, $generate_page)
+function nv_theme_bookhouse_detail($base_url, $tt_nhom, $array_data, $room_detail, $array_keyword, $data_others, $checkss, $content_comment, $generate_page)
 {
-    global $global_config, $module_name, $module_file, $module_upload, $lang_module, $lang_global, $module_config, $module_info, $array_cat, $listroom, $client_info, $my_footer, $array_config, $array_way, $array_legal, $array_money_unit, $location_array_config, $page, $all;
+    global $global_config, $module_name, $module_file, $module_data, $module_upload, $lang_module, $lang_global, $module_config, $module_info, $array_cat, $listroom, $client_info, $my_footer, $array_config, $array_way, $array_legal, $array_money_unit, $location_array_config, $page, $all,$db;
    
     $array_data['cat_title'] = $array_cat[$array_data['catid']]['title'];
     $array_data['cat_link'] = $array_cat[$array_data['catid']]['link'];
@@ -690,7 +690,49 @@ function nv_theme_bookhouse_detail($base_url, $tt_nhom, $array_data, $array_keyw
 				$xtpl->parse('main.icon');
 			}
 	}
-    
+    // lấy danh sách nội thất ra
+	$ds_noithat = $db->query('SELECT * FROM '. NV_PREFIXLANG . '_' . $module_data . '_furniture ORDER BY id DESC')->fetchAll();
+	$noi_that_daydu = $lang_module['full'];
+	if(!empty($ds_noithat))
+	{
+		$mang_noithat = explode(',',$array_data['furniture']);
+		foreach($ds_noithat as $ti)
+		{
+			if(in_array($ti['id'],$mang_noithat))
+			$xtpl->assign( 'checked', '<i class="fa fa-check"></i>');
+			else
+			{
+				$xtpl->assign( 'checked', '<i class="fa fa-times"></i>');
+				$noi_that_daydu = $lang_module['1phan'];
+			}
+			$xtpl->assign( 'noi_that', $ti );
+			$xtpl->parse( 'main.noi_that' );
+		}
+
+	}
+	$xtpl->assign('noi_that_daydu', $noi_that_daydu);
+
+	// lấy danh sách tiện ích ra
+	$ds_tienich = $db->query('SELECT * FROM '. NV_PREFIXLANG . '_' . $module_data . '_convenient ORDER BY id DESC')->fetchAll();
+	$tien_ich_daydu = $lang_module['full'];
+
+	if(!empty($ds_tienich))
+	{
+		$mang_tienich = explode(',',$array_data['convenient']);
+		foreach($ds_tienich as $ti)
+		{
+
+			if(in_array($ti['id'],$mang_tienich))
+				$xtpl->assign( 'checked', '<i class="fa fa-check"></i>');
+			else
+			{
+				$xtpl->assign( 'checked', '<i class="fa fa-times"></i>');
+				$tien_ich_daydu = $lang_module['1phan'];
+			}
+			$xtpl->assign( 'tien_ich', $ti );
+			$xtpl->parse( 'main.tien_ich' );
+		}
+	}
     if (! empty($array_data['project'])) {
         $xtpl->parse('main.project');
     }
@@ -763,7 +805,17 @@ function nv_theme_bookhouse_detail($base_url, $tt_nhom, $array_data, $array_keyw
         $xtpl->assign('COMMENT', $content_comment);
         $xtpl->parse('main.comment');
     }
-    
+    if (! empty($room_detail)) {
+        foreach ($room_detail as $room) {
+
+            $xtpl->assign('ROOM', array(
+                'title' => $listroom[$room['rid']]['title'],
+                'num' => $room['num']
+            ));
+            $xtpl->parse('main.room.loop');
+        }
+        $xtpl->parse('main.room');
+    }
     if (! empty($array_keyword)) {
         foreach ($array_keyword as $i => $value) {
             $xtpl->assign('KEYWORD', $value['keyword']);

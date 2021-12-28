@@ -1,46 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Máy chủ: localhost
--- Thời gian đã tạo: Th12 28, 2021 lúc 07:51 AM
--- Phiên bản máy phục vụ: 10.5.11-MariaDB
--- Phiên bản PHP: 7.4.22
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Cơ sở dữ liệu: `autoweb_hcm`
---
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `nv4_vi_bookhouse_ward`
---
-
-CREATE TABLE `nv4_vi_bookhouse_ward` (
-  `wardid` mediumint(8) UNSIGNED NOT NULL,
-  `districtid` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alias` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `location` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(1) UNSIGNED NOT NULL DEFAULT 1
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `nv4_vi_bookhouse_ward`
---
 
 INSERT INTO `nv4_vi_bookhouse_ward` (`wardid`, `districtid`, `title`, `alias`, `code`, `type`, `location`, `status`) VALUES
 (1, '1', 'Phúc Xá', 'Phuc-Xa', '00001', 'Phường', '21 02 52N, 105 50 52E', 1),
@@ -11071,31 +11029,3 @@ INSERT INTO `nv4_vi_bookhouse_ward` (`wardid`, `districtid`, `title`, `alias`, `
 (11008, '687', 'Định Thành', 'Dinh-Thanh-11008', '31993', 'Xã', '9 07 58N, 105 16 59E', 1),
 (11009, '687', 'Định Thành A', 'Dinh-Thanh-A', '31996', 'Xã', '9 07 29N, 105 16 04E', 1),
 (11010, '689', '9', '9-11010', '31999', 'Phường', '9 11 50N, 105 08 51E', 1);
-
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `nv4_vi_bookhouse_ward`
---
-ALTER TABLE `nv4_vi_bookhouse_ward`
-  ADD PRIMARY KEY (`wardid`),
-  ADD UNIQUE KEY `alias` (`alias`),
-  ADD UNIQUE KEY `code` (`code`),
-  ADD KEY `districtid` (`districtid`);
-
---
--- AUTO_INCREMENT cho các bảng đã đổ
---
-
---
--- AUTO_INCREMENT cho bảng `nv4_vi_bookhouse_ward`
---
-ALTER TABLE `nv4_vi_bookhouse_ward`
-  MODIFY `wardid` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11011;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

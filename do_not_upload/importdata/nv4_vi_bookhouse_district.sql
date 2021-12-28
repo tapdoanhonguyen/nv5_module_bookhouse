@@ -1,47 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Máy chủ: localhost
--- Thời gian đã tạo: Th12 28, 2021 lúc 07:52 AM
--- Phiên bản máy phục vụ: 10.5.11-MariaDB
--- Phiên bản PHP: 7.4.22
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Cơ sở dữ liệu: `autoweb_hcm`
---
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `nv4_vi_bookhouse_district`
---
-
-CREATE TABLE `nv4_vi_bookhouse_district` (
-  `districtid` mediumint(8) UNSIGNED NOT NULL,
-  `code` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `provinceid` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alias` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `location` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `weight` mediumint(8) UNSIGNED NOT NULL DEFAULT 0,
-  `status` tinyint(1) UNSIGNED NOT NULL DEFAULT 1
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `nv4_vi_bookhouse_district`
---
 
 INSERT INTO `nv4_vi_bookhouse_district` (`districtid`, `code`, `provinceid`, `title`, `alias`, `type`, `location`, `weight`, `status`) VALUES
 (1, '001', '1', 'Ba Đình', 'Ba-Dinh', 'Quận', '21 02 08N, 105 49 38E', 1, 1),
@@ -742,29 +699,3 @@ INSERT INTO `nv4_vi_bookhouse_district` (`districtid`, `code`, `provinceid`, `ti
 (695, '971', '63', 'Năm Căn', 'Nam-Can', 'Huyện', '8 46 59N, 104 58 20E', 7, 1),
 (696, '972', '63', 'Phú Tân', 'Phu-Tan-696', 'Huyện', '8 52 47N, 104 53 35E', 8, 1),
 (697, '973', '63', 'Ngọc Hiển', 'Ngoc-Hien', 'Huyện', '8 40 47N, 104 57 58E', 9, 1);
-
---
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `nv4_vi_bookhouse_district`
---
-ALTER TABLE `nv4_vi_bookhouse_district`
-  ADD PRIMARY KEY (`districtid`),
-  ADD KEY `provinceid` (`provinceid`);
-
---
--- AUTO_INCREMENT cho các bảng đã đổ
---
-
---
--- AUTO_INCREMENT cho bảng `nv4_vi_bookhouse_district`
---
-ALTER TABLE `nv4_vi_bookhouse_district`
-  MODIFY `districtid` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=698;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

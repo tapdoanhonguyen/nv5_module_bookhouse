@@ -1065,7 +1065,26 @@ foreach ($array_price_time as $index => $value) {
     ));
     $xtpl->parse('main.price_time');
 }
+$location = new Location();
+$location->set('IsDistrict', 1);
+$location->set('IsWard', 1);
+$location->set('SelectProvinceid', $data['provinceid']);
+$location->set('SelectDistrictid', $data['districtid']);
+$location->set('SelectWardid', $data['wardid']);
+$location->set('BlankTitleProvince', 1);
+$location->set('BlankTitleDistrict', 1);
+$location->set('BlankTitleWard', 1);
+$location->set('ColClass', 'col-xs-24 col-sm-8 col-md-8');
+$xtpl->assign('LOCATION', $location->buildInput());
 
+if ($array_config['allow_maps']) {
+    if (! empty($array_config['maps_appid'])) {
+        $xtpl->assign('MAPS_APPID', $array_config['maps_appid']);
+        $xtpl->parse('main.maps');
+    } else {
+        $xtpl->parse('main.required_maps_appid');
+    }
+}
 if (! empty($error)) {
     $xtpl->assign('ERROR', $error);
     $xtpl->parse('main.error');

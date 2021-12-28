@@ -79,6 +79,8 @@ if ($nv_Request->isset_request('submit', 'post')) {
     $row['provinceid'] = 0;
     $row['districtid'] = 0;
     $row['wardid'] = 0;
+    $row['furniture'] = 0;
+    $row['convenient'] = 0;
 }
 
 if (defined('NV_EDITOR'))
@@ -118,35 +120,35 @@ if (empty($row['id'])) {
 }
 
 // lấy danh sách nội thất ra
-$ds_noithat = $db->query('SELECT * FROM '. NV_PREFIXLANG . '_' . $module_data . '_furniture ORDER BY id DESC')->fetchAll();
+$list_furniture = $db->query('SELECT * FROM '. NV_PREFIXLANG . '_' . $module_data . '_furniture ORDER BY id DESC')->fetchAll();
 
-if(!empty($ds_noithat))
+if(!empty($list_furniture))
 {
-	$mang_noithat = explode(',', $row['noithat']); 
-	foreach($ds_noithat as $ti)
+	$array_furniture = explode(',', $row['furniture']); 
+	foreach($list_furniture as $ti)
 	{
-		if(in_array($ti['id'],$mang_noithat))
+		if(in_array($ti['id'],$array_furniture))
 		$xtpl->assign( 'checked', 'checked=checked');
 		else $xtpl->assign( 'checked', '');
-		$xtpl->assign( 'noithat', $ti );
-		$xtpl->parse( 'main.noithat' );
+		$xtpl->assign( 'furniture', $ti );
+		$xtpl->parse( 'main.furniture' );
 	}
 
 }
 	
 	// lấy danh sách tiện ích ra
-$ds_tienich = $db->query('SELECT * FROM '. NV_PREFIXLANG . '_' . $module_data . '_convenient ORDER BY id DESC')->fetchAll();
+$list_convenient = $db->query('SELECT * FROM '. NV_PREFIXLANG . '_' . $module_data . '_convenient ORDER BY id DESC')->fetchAll();
 
-if(!empty($ds_tienich))
+if(!empty($list_convenient))
 {
-	$mang_tienich = explode(',',$row['tienich']);
-	foreach($ds_tienich as $ti)
+	$array_convenient = explode(',',$row['convenient']);
+	foreach($list_convenient as $ti)
 	{
-		if(in_array($ti['id'],$mang_tienich))
+		if(in_array($ti['id'],$array_convenient))
 		$xtpl->assign( 'checked', 'checked=checked');
 		else $xtpl->assign( 'checked', '');
-		$xtpl->assign( 'tienich', $ti );
-		$xtpl->parse( 'main.tienich' );
+		$xtpl->assign( 'convenient', $ti );
+		$xtpl->parse( 'main.convenient' );
 	}
 
 }

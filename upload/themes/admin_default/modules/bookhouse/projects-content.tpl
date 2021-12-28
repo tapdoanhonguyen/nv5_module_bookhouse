@@ -241,21 +241,21 @@
 		<div class="panel panel-default">
 				<div class="panel-heading">Nội thất</div>
 				<div class="panel-body">
-					<!-- BEGIN: noithat -->
-						<div class="noithat">
-							<input type="checkbox" name="noithat[]" {checked} value="{noithat.id}"> {noithat.title}
+					<!-- BEGIN: furniture -->
+						<div class="furniture">
+							<input type="checkbox" name="furniture[]" {checked} value="{furniture.id}"> {furniture.title}
 						</div>
-						<!-- END: noithat -->
+						<!-- END: furniture -->
 				</div>
 		</div>
 		<div class="panel panel-default">
 				<div class="panel-heading">Tiện ích</div>
 				<div class="panel-body">
-					<!-- BEGIN: tienich -->
-						<div class="tienich">
-							<input type="checkbox" name="tienich[]" {checked} value="{tienich.id}"> {tienich.title}
+					<!-- BEGIN: convenient -->
+						<div class="convenient">
+							<input type="checkbox" name="convenient[]" {checked} value="{convenient.id}"> {convenient.title}
 						</div>
-						<!-- END: tienich -->
+						<!-- END: convenient -->
 				</div>
 		</div>
 	</div>	

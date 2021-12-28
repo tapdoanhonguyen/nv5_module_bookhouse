@@ -312,6 +312,58 @@
 						</div>
 					</div>
 				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">{LANG.items_location}</div>
+					<div class="panel-body">
+						<div class="form-group">{LOCATION} {LOCATION1}</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="address" value="{DATA.address}" placeholder="{LANG.items_address}" />
+						</div>
+						<!-- BEGIN: maps -->
+						<hr />
+						<div class="form-group">
+							<input type="text" class="form-control" name="maps_address" id="maps_address" value="" placeholder="{LANG.items_maps_location}">
+						</div>
+						<script type="text/javascript" src="{NV_BASE_SITEURL}themes/{TEMPLATE}/js/bookhouse-google_maps.js"></script>
+						<input type="hidden" id="maps_appid" value="{MAPS_APPID}" />
+						<div id="maps_maparea">
+							<div id="maps_mapcanvas" style="margin-top: 10px;" class="form-group"></div>
+							<div class="row form-group">
+								<div class="col-xs-6">
+									<div class="input-group">
+										<span class="input-group-addon">L</span> <input type="text" class="form-control" name="maps[maps_mapcenterlat]" id="maps_mapcenterlat" value="{DATA.maps.maps_mapcenterlat}" readonly="readonly">
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="input-group">
+										<span class="input-group-addon">N</span> <input type="text" class="form-control" name="maps[maps_mapcenterlng]" id="maps_mapcenterlng" value="{DATA.maps.maps_mapcenterlng}" readonly="readonly">
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="input-group">
+										<span class="input-group-addon">L</span> <input type="text" class="form-control" name="maps[maps_maplat]" id="maps_maplat" value="{DATA.maps.maps_maplat}" readonly="readonly">
+									</div>
+								</div>
+								<div class="col-xs-6">
+									<div class="input-group">
+										<span class="input-group-addon">N</span> <input type="text" class="form-control" name="maps[maps_maplng]" id="maps_maplng" value="{DATA.maps.maps_maplng}" readonly="readonly">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="input-group">
+										<span class="input-group-addon">Z</span> <input type="text" class="form-control" name="maps[maps_mapzoom]" id="maps_mapzoom" value="{DATA.maps.maps_mapzoom}" readonly="readonly">
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END: maps -->
+						<!-- BEGIN: required_maps_appid -->
+						<div class="alert alert-danger">{LANG.items_required_maps_appid}</div>
+						<!-- END: required_maps_appid -->
+					</div>
+				</div>
 				<!-- BEGIN: contact_info -->
 					<div class="panel panel-default">
 						<div class="panel-heading">{LANG.contact_info}</div>

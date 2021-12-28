@@ -234,6 +234,8 @@ $sql_create_module[] = "CREATE TABLE " . $db_config['prefix'] . "_" . $lang . "_
   alias varchar(250) NOT NULL,
   description text NOT NULL,
   descriptionhtml text NOT NULL,
+  furniture text NOT NULL,
+  convenient text NOT NULL,
   provinceid int(11) NOT NULL DEFAULT 0,
   districtid int(11) NOT NULL DEFAULT 0,
   wardid int(11) NOT NULL DEFAULT 0,

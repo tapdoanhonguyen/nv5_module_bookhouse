@@ -999,6 +999,7 @@ foreach ($listcat as $cat) {
 
 // List room
 $listroom = nv_listrooms();
+
 if (count($listroom)) {
     foreach ($listroom as $room) {
         $room['value'] = isset($room_detail[$room['id']]) ? $room_detail[$room['id']]['num'] : '';

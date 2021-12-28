@@ -331,7 +331,11 @@ if ($nv_Request->isset_request('add', 'get') or $nv_Request->isset_request('edit
             Header('Location: ' . NV_BASE_ADMINURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&' . NV_NAME_VARIABLE . '=' . $module_name . '&' . NV_OP_VARIABLE . '=items');
             die();
         }
-        
+        // Get rooms
+        $result = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_rooms_detail WHERE iid = ' . $id);
+        while ($row = $result->fetch()) {
+            $room_detail[$row['rid']] = $row;
+        }
         // Get keywords
         $_query = $db->query('SELECT tid, keyword FROM ' . NV_PREFIXLANG . '_' . $module_data . '_tags_id WHERE id=' . $data['id'] . ' ORDER BY keyword ASC');
         while ($row = $_query->fetch()) {
@@ -952,6 +956,16 @@ $array_projects = nv_get_projetcs($data['provinceid'], $data['districtid'], $dat
             $xtpl->assign('TYPE', $type);
             $xtpl->parse('main.type');
         }
+    }
+	// List room
+    $listroom = nv_listrooms();
+    if (count($listroom)) {
+        foreach ($listroom as $room) {
+            $room['value'] = isset($room_detail[$room['id']]) ? $room_detail[$room['id']]['num'] : '';
+            $xtpl->assign('ROOM', $room);
+            $xtpl->parse('main.room.loop');
+        }
+        $xtpl->parse('main.room');
     }
     // lấy danh sách nội thất ra
     $ds_noithat = $db->query('SELECT * FROM ' . NV_PREFIXLANG . '_' . $module_data . '_furniture ORDER BY id DESC')->fetchAll();
